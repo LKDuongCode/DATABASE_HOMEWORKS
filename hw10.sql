@@ -17,11 +17,6 @@ join patients as p on a.patientID = p.patientID
 order by a.appointmentdate asc;
 
 #4
-delete a from appointments as a
-join patients as p on a.patientID = p.patientID
-join doctors as d on a.doctorID = d.doctorID
-where (year(a.appointmentdate) - year(p.dob)) > 30 and d.specialization in ('noi tong quat', 'chan thuong chinh hinh');
-
 select p.fullname as patientname,d.specialization as specialization, year(a.appointmentdate) - year(p.dob) as ageatappointment from appointments a
 join patients p on a.patientID = p.patientID
 join doctors d on a.doctorID = d.doctorID
