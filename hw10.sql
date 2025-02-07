@@ -45,10 +45,13 @@ order by a.AppointmentDate asc;
 
 
 #6
-select concat('BỆNH NHÂN: ', p.FullName, ' - BÁC SĨ: ', d.FullName) as Info,a.AppointmentDate, coalesce(m.Diagnosis, 'Chưa có chẩn đoán') as Diagnosis,a.Status from appointments as a
-join patients as p on a.PatientID = p.PatientID
-join doctors as d on a.DoctorID = d.DoctorID
-left join medicalrecords as m on a.PatientID = m.PatientID and a.DoctorID = m.DoctorID
+select  concat('BỆNH NHÂN: ', p.PatientName, ' - BÁC SĨ: ', d.DoctorName) as Info, a.AppointmentDate, year(a.AppointmentDate) as AppointmentYear,
+case 
+    when a.AppointmentDate >= curdate() then 'Tương lai' 
+    else 'Đã qua' 
+end as AppointmentStatus from Appointments a
+join Patients p on a.PatientID = p.PatientID
+join Doctors d on a.DoctorID = d.DoctorID
 order by a.AppointmentDate asc;
 
 
