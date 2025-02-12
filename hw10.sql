@@ -12,8 +12,3 @@ group by p.productLine;
 #4
 select * from view_total_sales;
 
-#5
-select p.productLine,p.textDescription,v.total_sales,v.total_quantity from view_total_sales as v
-join productlines p on v.productLine = p.productLine
-where v.total_sales > 2000000
-order by v.total_sales desc;
