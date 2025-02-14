@@ -71,6 +71,8 @@ delimiter ;
 call GetTopSellingTracks(1, 50);
 
 #10
+drop index  idx_track_name on track;
+drop index idx_invoice_total on invoice;
 drop view if exists View_Track_Details;
 drop view if exists View_Customer_Invoice;
 drop view if exists View_Top_Selling_Tracks;
