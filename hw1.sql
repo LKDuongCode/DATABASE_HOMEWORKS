@@ -17,6 +17,7 @@ INSERT INTO accounts (acc_name, balance) VALUES
 delimiter //
 create procedure sp_transfer_money (in in_from_acc int, in in_to_acc int, in in_amount decimal (10,2))
 begin
+	set autocommit = 0;
 	start transaction;
     -- kiểm tra tồn tại 
     if not exists (select 1 from accounts where acc_id = in_from_acc) or not exists (select 1 from accounts where acc_id = in_to_acc) then

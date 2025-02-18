@@ -29,7 +29,9 @@ INSERT INTO courses (course_name, available_seats) VALUES
 delimiter //
 create procedure sp_enroll_course (in in_student_name varchar(50), in in_course_name varchar(50))
 begin
+	set autocommit = 0;
 	start transaction;
+    
     -- check slot
     if (select coalesce(available_seats, 0) from courses where course_name = in_course_name) <= 0 then
 		rollback;

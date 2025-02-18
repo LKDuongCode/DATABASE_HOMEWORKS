@@ -35,6 +35,7 @@ delimiter //
 create procedure sp_trans_salary (in in_empid int, in in_fundid int) -- thêm id của funds vì nó không có liên kết gì với bảng employee
 begin
     declare bank_status bit default 1;
+    set autocommit = 0;
 	start transaction;
     -- check balance
     if (select coalesce(balance,0) from company_funds where fund_id = in_fundid) < (select coalesce(salary,0) from employees where emp_id = in_empid) then

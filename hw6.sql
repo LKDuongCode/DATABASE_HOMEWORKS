@@ -15,6 +15,7 @@ create table enrollments_history (
 delimiter //
 create procedure sp_enroll_course2 (in in_student_name varchar(50), in in_course_name varchar(50))
 begin
+	set autocommit = 0;
 	start transaction;
     -- check enroll
     if exists (select 1 from enrollments where student_id = (select student_id from students where student_name = in_student_name) and course_id = (select course_id from courses where course_name = in_course_name)) then

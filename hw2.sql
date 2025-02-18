@@ -26,6 +26,7 @@ INSERT INTO products (product_name, price, stock) VALUES
 delimiter //
 create procedure sp_process_order (in in_productid int, in in_quantity int )
 begin
+	set autocommit = 0;
 	start transaction;
     -- check stock
     if (select coalesce(stock,0) from products where product_id = in_productid) < in_quantity then
