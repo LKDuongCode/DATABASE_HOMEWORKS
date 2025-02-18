@@ -26,7 +26,7 @@ begin
     -- check slot
     if (select coalesce(available_seats, 0) from courses where course_name = in_course_name) <= 0 then
 		insert into enrollment_history (student_id, course_id, status, enroll_date)
-		values ((select student_id from students where student_name = in_student_name),(select course_id from courses where course_name = in_course_name),'not enough slot',now());
+		values ((select student_id from students where student_name = in_student_name),(select course_id from courses where course_name = in_course_name),'failed',now());
 		rollback;
 		signal sqlstate '45000' set message_text = 'not enough slot';
     end if;
@@ -37,7 +37,7 @@ begin
     
     update courses set available_seats = available_seats - 1  where course_name = in_course_name ;
 	insert into enrollment_history (student_id, course_id, status, enroll_date)
-	values ((select student_id from students where student_name = in_student_name),(select course_id from courses where course_name = in_course_name), 'success', now());
+	values ((select student_id from students where student_name = in_student_name),(select course_id from courses where course_name = in_course_name), 'registed', now());
      commit;
 end
 // delimiter ;
