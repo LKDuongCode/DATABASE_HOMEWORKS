@@ -237,6 +237,7 @@ begin
     start transaction;
     -- kiểm tra xem đơn hàng có tồn tại không
     if not exists (select 1 from orders where order_id = in_orderID) then
+	rollback;
         signal sqlstate '45000'
         set message_text = 'không tồn tại mã hóa đơn';
     end if;
